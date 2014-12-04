@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>JsMultiLang Framework demo</title>
+		<script type="text/javascript" src="jsmultilang.min.js"></script>
+	</head>
+	<body>
+
+		<nav>
+			<span class="menu-item jml-home"></span>
+			<span class="menu-item jml-about"></span>
+		</nav>
+
+		<h1></h1>
+		<div class="block1">
+			<div class="category-header"></div>
+		</div>
+		<div class="block2">
+			<div class="category-header"></div>
+		</div>
+
+		<script>
+			//test JsMultiLang framework
+			JsMultiLang.addLangConfig ('eng', {
+				index : {
+					home : 'Home',
+					about : 'About'
+				},
+				block_titles : {
+					h1_1 : 'My site',
+					h2_1 : 'Programming',
+					h2_2 : 'Web design'
+				}
+			});
+			JsMultiLang.addLangConfig ('rus', {
+				index : {
+					home : 'Главная',
+					about : 'О нас'
+				},
+				block_titles : {
+					h1_1 : 'Мой сайт',
+					h2_1 : 'Программирование',
+					h2_2 : 'Веб дизайн'
+				}
+			});
+			JsMultiLang.setLang ('eng');
+			
+			document.getElementsByClassName ("jml-home") [0].innerHTML = 
+				JsMultiLang.getWords('index', 'home');
+			document.getElementsByClassName ("jml-about") [0].innerHTML = 
+				JsMultiLang.getWords('index', 'about');
+
+			document.getElementsByTagName ("h1") [0].innerHTML = 
+				JsMultiLang.getWords('block_titles', 'h1_1');
+				
+			document.getElementsByClassName ("block1") [0]
+				.getElementsByClassName ("category-header") [0]
+					.innerHTML = 
+						JsMultiLang.getWords('block_titles', 'h2_1');
+						
+			document.getElementsByClassName ("block2") [0]
+				.getElementsByClassName ("category-header") [0]
+					.innerHTML = 
+						JsMultiLang.getWords('block_titles', 'h2_2');
+						
+			
+		</script>
+			
+		<br>
+		<br>
+		
+		<div id="JMLTestEmpty"></div>
+		<div id="JMLTestNonEmpty">JMLTestNonEmpty</div>
+		<div class="JMLTest1">JMLTest1</div>
+		<div class="JMLTest1">JMLTest1</div>
+		<div class="JMLTest2">JMLTest2</div>
+		<div class="JMLTest2">JMLTest2</div>
+		<div class="JMLTest3">JMLTest3</div>
+			
+			
+			
+		<script>
+			JsMultiLang.setForId ('JMLTestNonEmpty', 'index', 'home');
+			// Первый элемент должен получить значение Home
+			JsMultiLang.setForId ('JMLTestEmpty', 'index', 'home');
+			// Второй элемент должен получить значение Home
+			JsMultiLang.setForFirstClassElement ('JMLTest1', 'index', 'home');
+			// Третий элемент (первый элемент с классом JMLTest1) 
+			// должен получить значение Home
+			JsMultiLang.setForClassElements ('JMLTest2', 'index', 'home');
+			// Пятый и шестой элемент должны получить значение Home
+		
+			JsMultiLang.setPageTitle ('index', 'home');
+			
+			
+			//JsMultiLang.addWords ('eng', 'locations', 'denwer', 'Denwer');
+			//JsMultiLang.addWords ('rus', 'locations', 'denwer', 'Денвер');
+			JsMultiLang.addWordsSet ('locations', 'denwer', {
+				eng : 'Denwer',
+				rus : 'Денвер'
+			});
+			JsMultiLang.setForFirstClassElement ('JMLTest3', 'locations', 'denwer');
+		</script>
+			
+		<div id="JMLTranslatorsTestIndex">JMLTranslatorsTestIndex</div>
+		
+		<div class="JMLTranslatorsTestBlock1">JMLTranslatorsTestBlock1</div>
+		<div class="JMLTranslatorsTestBlock2">JMLTranslatorsTestBlock2</div>
+			
+		<script>
+			JsMultiLang.addTranslators ({
+				index : function () {
+					JsMultiLang.setForId ('JMLTranslatorsTestIndex', 'index', 'home');
+				},
+				sthBlock : function () {
+					JsMultiLang.setForFirstClassElement ('JMLTranslatorsTestBlock1', 'index', 'home');
+					JsMultiLang.setForFirstClassElement ('JMLTranslatorsTestBlock2', 'index', 'home');
+				}
+			});
+			
+			JsMultiLang.translate ('index');
+		</script>
+		<div>&nbsp;</div>
+		
+		
+		<div>
+			<span>Главная</span>
+			<span>О системе</span>
+			<span>Концерты</span>
+		</div>
+		
+		<div> Гарантии  </div>
+		
+		<div>
+			Для организаторов
+			<span class="hint-btn"></span>
+		</div>
+		
+		<div>Контакты: 
+			<div>no-reply@lux-blog.org</div>
+		</div>
+		
+		<script>
+			// JsMultiLang.setLang ('eng');
+			// JsMultiLang.addLangConfig ('eng');
+			// JsMultiLang.addLangConfig ('rus');
+			JsMultiLang.setDictionary({
+					index: 'Главная',
+					about: 'О системе',
+					concerts: 'Концерты',
+					garant: 'Гарантии',
+					for_managers: 'Для организаторов',
+					contacts: 'Контакты:'
+				}, {
+					index: 'Home',
+					about: 'About',
+					concerts: 'Concerts',
+					garant: 'Warranty',
+					for_managers: 'For managers',
+					contacts: 'Contacts: '
+				},
+				'eng'
+			);
+			/*JsMultiLang.setDictionary( [
+				[ 'Главная', 'Home' ],
+				[ 'О системе', 'About' ],
+				[ 'Концерты', 'Concerts' ],
+				[ 'Гарантии', 'Warranty' ],
+				[ 'Для организаторов', 'For managers' ],
+				[ 'Контакты:', 'Contacts: ' ],
+			], 'eng' );*/
+			
+			JsMultiLang.translateAll ();
+		</script>
+	</body>
+</html>
